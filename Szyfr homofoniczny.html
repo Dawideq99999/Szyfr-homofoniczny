@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Szyfr Homofoniczny</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-text, .output-text {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="inputText" class="input-text" placeholder="Wpisz tekst do szyfrowania">
+        <button onclick="encryptText()" class="button">Szyfruj</button>
+        <input type="text" id="outputText" class="output-text" placeholder="Zaszyfrowany tekst" readonly>
+    </div>
+
+    <script>
+        // Homophonic map based on the image provided
+        const homophonicMap = {
+            'a': ['9'],
+            'ą': ['1'],
+            'b': ['1'],
+            'c': ['4'],
+            'ć': ['1'],
+            'd': ['3'],
+            'e': ['8'],
+            'ę': ['1'],
+            'f': ['1'],
+            'g': ['1'],
+            'h': ['1'],
+            'i': ['8'],
+            'j': ['2'],
+            'k': ['4'],
+            'l': ['2'],
+            'ł': ['2'],
+            'm': ['3'],
+            'n': ['6'],
+            'ń': ['1'],
+            'o': ['8'],
+            'ó': ['1'],
+            'p': ['1'],
+            'q': ['1'],
+            'r': ['5'],
+            's': ['4'],
+            'ś': ['1'],
+            't': ['4'],
+            'u': ['3'],
+            'v': ['1'],
+            'w': ['5'],
+            'x': ['1'],
+            'y': ['4'],
+            'z': ['6'],
+            'ź': ['1'],
+            'ż': ['1'],
+        };
+
+        // Function to encrypt text using the homophonic map
+        function encryptHomophonic(text) {
+            let encryptedText = '';
+            for (let char of text.toLowerCase()) {
+                if (homophonicMap[char]) {
+                    let codes = homophonicMap[char];
+                    encryptedText += codes[Math.floor(Math.random() * codes.length)];
+                } else {
+                    encryptedText += char; // Leave the character as is if it's not in the map
+                }
+            }
+            return encryptedText;
+        }
+
+        // Function called on button click to encrypt text
+        function encryptText() {
+            const inputText = document.getElementById('inputText').value;
+            const encrypted = encryptHomophonic(inputText);
+            document.getElementById('outputText').value = encrypted;
+        }
+    </script>
+</body>
+</html>
